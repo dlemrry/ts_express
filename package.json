@@ -1,0 +1,30 @@
+{
+  "name": "bv",
+  "version": "1.0.0",
+  "description": "express 를 이용한 rest api 구현",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc-watch --onSuccess \"ts-node index.ts\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/birdview-coding-assignment/2022-12-06-Deuk-kyo-Lee.git"
+  },
+  "author": "dlemrry",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/birdview-coding-assignment/2022-12-06-Deuk-kyo-Lee/issues"
+  },
+  "homepage": "https://github.com/birdview-coding-assignment/2022-12-06-Deuk-kyo-Lee#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "typescript": "^4.9.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.14",
+    "nodemon": "^2.0.20",
+    "ts-node": "^10.9.1",
+    "tsc-watch": "^5.0.3"
+  }
+}
