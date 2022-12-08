@@ -3,7 +3,7 @@ express 를 이용한 rest api 구현
 ### CR /users
 
 user 회원가입 : post /users  
-user 정보 확인 : get /users
+user 전체 목록 가져오기 : get /users
 
 ### R /articles
 
@@ -11,7 +11,7 @@ articles 전체 목록 확인 : get /articles
 
 ### R /pictures
 
-전체 pictures 목록 확인 : get /pictures
+pictures 전체 목록 확인 : get /pictures
 
 ### CRD /users/:user_id/articles
 
