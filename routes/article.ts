@@ -1,9 +1,9 @@
-import  express , { Request, Response, NextFunction }from 'express';
-const { get ,set} = require('../utils/redis');
+import express, { Request, Response, NextFunction } from "express";
+// const { get ,set} = require('../utils/redis');
 const router = express.Router();
- 
-router.get('/', (req:Request, res:Response) => {
-    res.send('article info:');
+
+router.get("/", (req: Request, res: Response) => {
+  res.send("article info:");
 });
- 
+
 module.exports = router;
