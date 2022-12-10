@@ -3,6 +3,8 @@ import { DataSource } from "typeorm";
 import { root } from "./paths";
 import { User } from "../entity/user";
 const sqlite3 = require("sqlite3").verbose();
+import { myDataSource } from "./data-source";
+import "reflect-metadata";
 
 import { UserInfo } from "../entity/entitytypes";
 
@@ -23,13 +25,13 @@ import { UserInfo } from "../entity/entitytypes";
 //   logging: true,
 // };
 
-const myDataSource = new DataSource({
-  type: "sqlite",
-  database: `${root}/data/line.sqlite`,
-  // database: db,
-  entities: [User],
-  logging: true,
-});
+// const myDataSource = new DataSource({
+//   type: "sqlite",
+//   database: `${root}/data/line.sqlite`,
+//   // database: db,
+//   entities: [User],
+//   logging: true,
+// });
 
 myDataSource
   .initialize()
@@ -49,15 +51,10 @@ const getusers = async () => {
 const setuser = async (userinfo: UserInfo) => {
   const userRepository = await myDataSource.getRepository(User);
   const user = await userRepository.create(userinfo);
-  const results = await userRepository.save(user);
-  return results;
+  const result = await userRepository.save(user);
+  return result;
 };
 module.exports = {
   setuser: setuser,
   getusers: getusers,
 };
-//   const connection =  createConnection(options);
-// createConnection(options).then((connection) => {
-//   const userRepository = connection.getRepository(User);
-
-// });
