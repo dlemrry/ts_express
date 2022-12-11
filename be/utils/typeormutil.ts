@@ -48,6 +48,17 @@ const getusers = async () => {
 
   return users;
 };
+
+const getuserinfo = async (userid: string) => {
+  console.log("fetching info : " + userid);
+  const userRepository = await myDataSource.getRepository(User);
+  const user = await userRepository.findOneBy({
+    userid: userid,
+  });
+
+  return user;
+};
+
 const setuser = async (userinfo: UserInfo) => {
   const userRepository = await myDataSource.getRepository(User);
   const user = await userRepository.create(userinfo);
@@ -57,4 +68,5 @@ const setuser = async (userinfo: UserInfo) => {
 module.exports = {
   setuser: setuser,
   getusers: getusers,
+  getuserinfo: getuserinfo,
 };

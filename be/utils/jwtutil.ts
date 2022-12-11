@@ -1,8 +1,7 @@
+import { Request, Response } from "express";
 const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-// const redisClient = require("./redis");
-const { get, set } = require("./redis");
 const secret = process.env.JWTSECRET;
 
 interface user {
@@ -34,14 +33,39 @@ const verify = (token: string) => {
     decoded = jwt.verify(token, secret);
     return {
       ok: true,
-      id: decoded.id,
-      role: decoded.role,
+      userid: decoded.userid,
     };
   } catch (err: any) {
     return {
       ok: false,
       message: err.message,
     };
+  }
+};
+
+const auth = (req: Request, res: Response, next: any) => {
+  if (req.headers.authorization) {
+    console.log("verifying token...");
+    const token = req.headers.authorization.split("Bearer ")[1];
+
+    const result = verify(token);
+    if (result.ok) {
+      console.log("token verified!");
+      req.body.userid = result.userid;
+      next();
+    } else {
+      console.log("token verify fail");
+      // 검증 실패, 토큰 만료
+      res.status(401).send({
+        ok: false,
+        message: result.message,
+      });
+    }
+  } else {
+    res.status(401).send({
+      ok: false,
+      message: "no login info",
+    });
   }
 };
 
@@ -76,5 +100,6 @@ module.exports = {
   login: login,
   verify: verify,
   refresh: refresh,
+  auth: auth,
   // refreshVerify: refreshVerify,
 };

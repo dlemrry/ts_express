@@ -1,15 +1,16 @@
 import { pushRetentionArgument } from "@redis/time-series/dist/commands";
 import express, { Request, Response, NextFunction } from "express";
 // const { get, set } = require("../utils/redis");
-const { getusers, setuser } = require("../utils/typeormutil");
+const { getusers, setuser, getuserinfo } = require("../utils/typeormutil");
 const axios = require("axios");
 const router = express.Router();
-const { login, verify } = require("../utils/jwtutil");
+const { login, verify, auth } = require("../utils/jwtutil");
 
-router.get("/", async (req: Request, res: Response) => {
-  const users = await getusers();
-  console.log(JSON.stringify(users));
-  res.send(users);
+router.get("/", auth, async (req: Request, res: Response) => {
+  //header token verified...
+  const userinfo = await getuserinfo(req.body.userid);
+  console.log(JSON.stringify(userinfo));
+  res.send(userinfo);
 });
 
 router.post("/", async (req: Request, res: Response) => {
@@ -23,12 +24,17 @@ router.post("/", async (req: Request, res: Response) => {
 
 router.post("/login", async (req: Request, res: Response) => {
   //로그인
-  //console.log(req.body);
-  const token = login(req.body);
+  console.log(req.body.userid);
+  const userinfo = await getuserinfo(req.body.userid);
+  if (userinfo.userid == req.body.userid && userinfo.pw == req.body.pw) {
+    const token = login(req.body);
+    res.cookie("token", token);
+    res.send();
+  } else {
+    res.status(403).send("invalid user info");
+  }
 
   //console.log(result);
-  res.cookie("token", token);
-  res.send();
 });
 
 module.exports = router;

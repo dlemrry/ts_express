@@ -19,6 +19,7 @@
   "homepage": "https://github.com/birdview-coding-assignment/2022-12-06-Deuk-kyo-Lee#readme",
   "dependencies": {
     "axios": "^1.2.1",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
