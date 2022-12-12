@@ -1,7 +1,10 @@
 import { pushRetentionArgument } from "@redis/time-series/dist/commands";
 import express, { Request, Response, NextFunction } from "express";
+// import { UserInfo } from "../entity/entitytypes";
 // const { get, set } = require("../utils/redis");
-const { getusers, setuser, getuserinfo } = require("../utils/typeormutil");
+// const { getusers, setuser, getuserinfo } = require("../utils/typeormutil");
+
+import { getusers, setuser, getuserinfo } from "../service/user.service";
 const axios = require("axios");
 const router = express.Router();
 const { login, verify, auth } = require("../utils/jwtutil");
@@ -10,7 +13,7 @@ router.get("/", auth, async (req: Request, res: Response) => {
   //header token verified...
   const userinfo = await getuserinfo(req.body.userid);
   console.log(JSON.stringify(userinfo));
-  res.send(userinfo);
+  res.status(200).send(userinfo);
 });
 
 router.post("/", async (req: Request, res: Response) => {
@@ -30,7 +33,7 @@ router.post("/", async (req: Request, res: Response) => {
 router.post("/login", async (req: Request, res: Response) => {
   //로그인
   console.log(req.body.userid);
-  const userinfo = await getuserinfo(req.body.userid);
+  const userinfo: any = await getuserinfo(req.body.userid);
   if (userinfo.userid == req.body.userid && userinfo.pw == req.body.pw) {
     const token = login(req.body);
     res.cookie("token", token);

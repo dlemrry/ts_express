@@ -1,13 +1,9 @@
-// const httpMocks = require("node-mocks-http");
-// const app = require("./index");
 import app from "../index";
 import request from "supertest";
 import { User } from "../entity/user";
 import { Request, Response } from "express";
-
 import { testDataSource } from "../utils/data-source";
-// const request = require("supertest");
-// const datasource = testDataSource;
+
 describe("api test", () => {
   let token: string;
 
@@ -21,6 +17,7 @@ describe("api test", () => {
         console.error("Error during Data Source initialization:", err);
       });
   });
+
   test("회원가입", async () => {
     const res = await request(app)
       .post("/user")
@@ -30,8 +27,8 @@ describe("api test", () => {
 
     expect(res.status).toBe(200);
     expect(res.body.userid).toEqual("dlemrry");
-    // token = res.headers["set-cookie"][0].split("token=")[1].split(";")[0];
   });
+
   test("로그인", async () => {
     const res = await request(app)
       .post("/user/login")
@@ -41,5 +38,13 @@ describe("api test", () => {
 
     expect(res.status).toBe(200);
     token = res.headers["set-cookie"][0].split("token=")[1].split(";")[0];
+  });
+
+  test("auth check", async () => {
+    const res = await request(app)
+      .get("/user")
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(res.status).toBe(200);
   });
 });

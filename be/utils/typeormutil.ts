@@ -42,31 +42,33 @@ myDataSource
     console.error("Error during Data Source initialization:", err);
   });
 
-const getusers = async () => {
-  const userRepository = await myDataSource.getRepository(User);
-  const users = await userRepository.find();
+export default myDataSource;
 
-  return users;
-};
+// const getusers = async () => {
+//   const userRepository = await myDataSource.getRepository(User);
+//   const users = await userRepository.find();
 
-const getuserinfo = async (userid: string) => {
-  console.log("fetching info : " + userid);
-  const userRepository = await myDataSource.getRepository(User);
-  const user = await userRepository.findOneBy({
-    userid: userid,
-  });
+//   return users;
+// };
 
-  return user;
-};
+// const getuserinfo = async (userid: string) => {
+//   console.log("fetching info : " + userid);
+//   const userRepository = await myDataSource.getRepository(User);
+//   const user = await userRepository.findOneBy({
+//     userid: userid,
+//   });
 
-const setuser = async (userinfo: UserInfo) => {
-  const userRepository = await myDataSource.getRepository(User);
-  const user = await userRepository.create(userinfo);
-  const result = await userRepository.save(user);
-  return result;
-};
-module.exports = {
-  setuser: setuser,
-  getusers: getusers,
-  getuserinfo: getuserinfo,
-};
+//   return user;
+// };
+
+// const setuser = async (userinfo: UserInfo) => {
+//   const userRepository = await myDataSource.getRepository(User);
+//   const user = await userRepository.create(userinfo);
+//   const result = await userRepository.save(user);
+//   return result;
+// };
+// module.exports = {
+//   setuser: setuser,
+//   getusers: getusers,
+//   getuserinfo: getuserinfo,
+// };
