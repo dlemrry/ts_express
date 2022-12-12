@@ -3,7 +3,7 @@ import { User } from "../entity/user";
 
 const myDataSource = new DataSource({
   type: "sqlite",
-  database: `data/bvdb.sqlite`,
+  database: `:memory:`,
   synchronize: true,
   //   database: "bvdb",
   entities: [User],
@@ -13,7 +13,8 @@ const myDataSource = new DataSource({
 });
 const testDataSource = new DataSource({
   type: "sqlite",
-  database: `data/bvdbtest.sqlite`,
+  // database: `data/bvdbtest.sqlite`,
+  database: `:memory:`,
   synchronize: true,
   //   database: "bvdb",
   entities: [User],

@@ -21,7 +21,17 @@ describe("api test", () => {
         console.error("Error during Data Source initialization:", err);
       });
   });
+  test("회원가입", async () => {
+    const res = await request(app)
+      .post("/user")
+      .set("Accept", "application/json")
+      .type("application/json")
+      .send({ userid: "dlemrry", name: "이득교", pw: "1234" });
 
+    expect(res.status).toBe(200);
+    expect(res.body.userid).toEqual("dlemrry");
+    // token = res.headers["set-cookie"][0].split("token=")[1].split(";")[0];
+  });
   test("로그인", async () => {
     const res = await request(app)
       .post("/user/login")
@@ -30,11 +40,6 @@ describe("api test", () => {
       .send({ userid: "dlemrry", pw: "1234" });
 
     expect(res.status).toBe(200);
-    // console.log(res.headers["set-cookie"][0]);
     token = res.headers["set-cookie"][0].split("token=")[1].split(";")[0];
-    // console.log(token);
-    // expect(res.status).toEqual("dlemrry");
-    // expect(res.body.name).toEqual("이득교");
-    // expect(res.body.pw).toEqual("1234");
   });
 });
