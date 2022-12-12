@@ -15,11 +15,16 @@ router.get("/", auth, async (req: Request, res: Response) => {
 
 router.post("/", async (req: Request, res: Response) => {
   console.log(req.body);
-
-  const result = await setuser(req.body);
-  console.log(result);
-
-  res.send(result);
+  const isExist = await getuserinfo(req.body.userid);
+  //check duplicate id
+  if (!isExist) {
+    const result = await setuser(req.body);
+    console.log(result);
+    res.status(200).send(result);
+  } else {
+    console.log("id duplicate");
+    res.status(401).send("userid duplicate");
+  }
 });
 
 router.post("/login", async (req: Request, res: Response) => {
@@ -29,7 +34,7 @@ router.post("/login", async (req: Request, res: Response) => {
   if (userinfo.userid == req.body.userid && userinfo.pw == req.body.pw) {
     const token = login(req.body);
     res.cookie("token", token);
-    res.send();
+    res.status(200).send("login success");
   } else {
     res.status(403).send("invalid user info");
   }
