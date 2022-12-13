@@ -3,6 +3,7 @@ import request from "supertest";
 import { User } from "../entity/user";
 import { Request, Response } from "express";
 import { testDataSource } from "../utils/data-source";
+import { Article } from "../entity/article";
 
 describe("api test", () => {
   let token: string;
@@ -46,5 +47,16 @@ describe("api test", () => {
       .set("Authorization", `Bearer ${token}`);
 
     expect(res.status).toBe(200);
+  });
+
+  test("article 작성", async () => {
+    const res = await request(app)
+      .post("/user/dlemrry/article")
+      .set("Accept", "application/json")
+      .set("Authorization", `Bearer ${token}`)
+      .type("application/json")
+      .send({ title: "aa", content: "bb" });
+
+    expect(res.body).toEqual(Article);
   });
 });

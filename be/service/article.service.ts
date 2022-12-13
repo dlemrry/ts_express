@@ -24,16 +24,17 @@ const writearticle = async (userid: string, title: string, content: string) => {
   //   userid: userid,
   // });
   // const articleRepository = await myDataSource.getRepository(Article);
-  // await articleRepository
+  // const article = await articleRepository
   //   .createQueryBuilder()
   //   .insert()
   //   .into(Article)
-  //   .values([{ title: "aa", content: "bb" }])
+  //   .values([{ writer: userid, title: "aa", content: "bb" }])
   //   .execute();
   // await articleRepository
   //   .createQueryBuilder()
   //   .relation(User, "article")
-  //   .of(user);
+  //   .of(user)
+  //   .add(article);
 };
 
 const getuserarticles = async () => {

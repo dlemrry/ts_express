@@ -7,7 +7,6 @@ const myDataSource = new DataSource({
   type: "sqlite",
   database: `:memory:`,
   synchronize: true,
-  //   database: "bvdb",
   entities: [User, Article, Picture],
   logging: true,
   subscribers: [],
@@ -15,10 +14,8 @@ const myDataSource = new DataSource({
 });
 const testDataSource = new DataSource({
   type: "sqlite",
-  // database: `data/bvdbtest.sqlite`,
   database: `:memory:`,
   synchronize: true,
-  //   database: "bvdb",
   entities: [User, Article, Picture],
   logging: true,
   subscribers: [],

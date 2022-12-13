@@ -27,7 +27,7 @@ export class Article extends BaseEntity {
   user: User;
 
   @OneToMany(() => Picture, (picture) => picture.article, {
-    onDelete: "CASCADE",
+    cascade: true,
   })
   picture: Picture[];
 }

@@ -20,8 +20,8 @@ export class User extends BaseEntity {
   @Column()
   pw: string;
 
-  @OneToMany((type) => Article, (article) => article.user, {
-    onDelete: "CASCADE",
+  @OneToMany(() => Article, (article) => article.user, {
+    cascade: true,
   })
   article: Article[];
 }

@@ -1,8 +1,5 @@
 import { pushRetentionArgument } from "@redis/time-series/dist/commands";
 import express, { Request, Response, NextFunction } from "express";
-// import { UserInfo } from "../entity/entitytypes";
-// const { get, set } = require("../utils/redis");
-// const { getusers, setuser, getuserinfo } = require("../utils/typeormutil");
 
 const articleRouter = require("./article");
 import { getusers, setuser, getuserinfo } from "../service/user.service";
