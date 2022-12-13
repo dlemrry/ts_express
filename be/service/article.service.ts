@@ -12,6 +12,10 @@ const getarticles = async () => {
 
 const writearticle = async (userid: string, title: string, content: string) => {
   // const user: any = await User.findOne({ where: { userid: userid } });
+  // const userRepository = await myDataSource.getRepository(User);
+  // const user: any = await userRepository.findOneBy({
+  //   userid: userid,
+  // });
   const article = await Article.create({
     title: title,
     content: content,

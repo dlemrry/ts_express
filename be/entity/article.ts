@@ -23,7 +23,7 @@ export class Article extends BaseEntity {
   content: string;
 
   @ManyToOne(() => User, (user) => user.article)
-  @JoinColumn({ name: "writer" })
+  // @JoinColumn({ name: "writer" })
   user: User;
 
   @OneToMany(() => Picture, (picture) => picture.article, {

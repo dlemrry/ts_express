@@ -57,6 +57,7 @@ describe("api test", () => {
       .type("application/json")
       .send({ title: "aa", content: "bb" });
 
-    expect(res.body).toEqual(Article);
+    expect(res.body.writer).toEqual("dlemrry");
+    expect(res.body.title).toEqual("aa");
   });
 });
