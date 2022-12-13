@@ -4,19 +4,22 @@ import express, { Request, Response, NextFunction } from "express";
 // const { get, set } = require("../utils/redis");
 // const { getusers, setuser, getuserinfo } = require("../utils/typeormutil");
 
+const articleRouter = require("./article");
 import { getusers, setuser, getuserinfo } from "../service/user.service";
 const axios = require("axios");
-const router = express.Router();
+const userRouter = express.Router();
 const { login, verify, auth } = require("../utils/jwtutil");
 
-router.get("/", auth, async (req: Request, res: Response) => {
+userRouter.use("/:userid/article", articleRouter);
+
+userRouter.get("/", auth, async (req: Request, res: Response) => {
   //header token verified...
   const userinfo = await getuserinfo(req.body.userid);
   console.log(JSON.stringify(userinfo));
   res.status(200).send(userinfo);
 });
 
-router.post("/", async (req: Request, res: Response) => {
+userRouter.post("/", async (req: Request, res: Response) => {
   console.log(req.body);
   const isExist = await getuserinfo(req.body.userid);
   //check duplicate id
@@ -30,7 +33,7 @@ router.post("/", async (req: Request, res: Response) => {
   }
 });
 
-router.post("/login", async (req: Request, res: Response) => {
+userRouter.post("/login", async (req: Request, res: Response) => {
   //로그인
   console.log(req.body.userid);
   const userinfo: any = await getuserinfo(req.body.userid);
@@ -45,4 +48,4 @@ router.post("/login", async (req: Request, res: Response) => {
   //console.log(result);
 });
 
-module.exports = router;
+module.exports = userRouter;
