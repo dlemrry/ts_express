@@ -4,23 +4,30 @@ import {
   Column,
   OneToMany,
   ManyToOne,
+  JoinColumn,
+  BaseEntity,
 } from "typeorm";
 import { User } from "./user";
 import { Picture } from "./picture";
 @Entity()
-export class Article {
+export class Article extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column()
+  writer: string;
   @Column()
   title: string;
 
   @Column()
   content: string;
 
-  @ManyToOne((type) => User, (user) => user.article)
+  @ManyToOne(() => User, (user) => user.article)
+  @JoinColumn({ name: "writer" })
   user: User;
 
-  @OneToMany((type) => Picture, (picture) => picture.article)
+  @OneToMany(() => Picture, (picture) => picture.article, {
+    onDelete: "CASCADE",
+  })
   picture: Picture[];
 }

@@ -1,7 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  BaseEntity,
+} from "typeorm";
 import { Article } from "./article";
 @Entity()
-export class User {
+export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -14,6 +20,8 @@ export class User {
   @Column()
   pw: string;
 
-  @OneToMany((type) => Article, (article) => article.user)
+  @OneToMany((type) => Article, (article) => article.user, {
+    onDelete: "CASCADE",
+  })
   article: Article[];
 }
