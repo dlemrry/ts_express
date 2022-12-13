@@ -11,40 +11,23 @@ const getarticles = async () => {
 };
 
 const writearticle = async (userid: string, title: string, content: string) => {
-  // const user: any = await User.findOne({ where: { userid: userid } });
-  // const userRepository = await myDataSource.getRepository(User);
-  // const user: any = await userRepository.findOneBy({
-  //   userid: userid,
-  // });
   const article = await Article.create({
     title: title,
     content: content,
     writer: userid,
   }).save();
   return article;
-
-  // const userRepository = await myDataSource.getRepository(User);
-  // const user = await userRepository.findOneBy({
-  //   userid: userid,
-  // });
-  // const articleRepository = await myDataSource.getRepository(Article);
-  // const article = await articleRepository
-  //   .createQueryBuilder()
-  //   .insert()
-  //   .into(Article)
-  //   .values([{ writer: userid, title: "aa", content: "bb" }])
-  //   .execute();
-  // await articleRepository
-  //   .createQueryBuilder()
-  //   .relation(User, "article")
-  //   .of(user)
-  //   .add(article);
 };
 
-const getuserarticles = async () => {
-  const articleRepository = await myDataSource.getRepository(Article);
-  const articles = await articleRepository.find();
+const getuserarticles = async (userid: string) => {
+  const articles = await Article.find({ where: [{ writer: userid }] });
+
   return articles;
 };
 
-export { getarticles, writearticle };
+const deletearticle = async (userid: string) => {
+  const result = await Article.delete({ writer: userid });
+  return result;
+};
+
+export { getarticles, writearticle, getuserarticles, deletearticle };

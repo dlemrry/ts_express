@@ -60,4 +60,21 @@ describe("api test", () => {
     expect(res.body.writer).toEqual("dlemrry");
     expect(res.body.title).toEqual("aa");
   });
+
+  test("article 가져오기", async () => {
+    const res = await request(app)
+      .get("/user/dlemrry/article")
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(res.body[0].writer).toEqual("dlemrry");
+    expect(res.body[0].title).toEqual("aa");
+  });
+
+  test("user article 전체 지우기", async () => {
+    const res = await request(app)
+      .delete("/user/dlemrry/article")
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(res.body.affected).toBe(1);
+  });
 });
